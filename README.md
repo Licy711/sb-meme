@@ -32,7 +32,8 @@
 
 ### 切换分组
 
-面板顶部分组标签栏显示“我的”和“sbmeme”，点击标签即可切换当前分组。
+面板顶部分组标签栏显示“我的”和“烧饼”、“雪王”，点击标签即可切换当前分组。
+![alt text](https://raw.githubusercontent.com/Licy711/sb-meme/main/doc/image3.png)
 
 ### 添加表情包
 
