@@ -26,7 +26,9 @@
 
 ### 打开表情包面板
 
-点击编辑器工具栏中表情按钮左侧的图片图标按钮（红色边框图标），即可展开表情包面板。
+点击编辑器工具栏中表情按钮左侧的图片图标按钮（雪王图标），即可展开表情包面板。
+
+![alt text](https://raw.githubusercontent.com/Licy711/sb-meme/main/doc/image1.png)
 
 ### 切换分组
 
@@ -49,6 +51,8 @@
 ### 从帖子中收集图片
 
 在帖子正文中，将鼠标悬浮在任意图片上，左上角会出现“+”按钮，点击即可将图片添加到“我的”分组（若已存在则提示重复）。
+![alt text](https://raw.githubusercontent.com/Licy711/sb-meme/main/doc/image2.png)
+
 
 ## ⚙️ 分组配置
 
@@ -132,4 +136,4 @@ const DEFAULT_IMAGES = {
 ---
 
 **作者**：雪王  
-**仓库地址**：https://github.com/你的用户名/linux-sb-emoji-tool
+**仓库地址**：https://github.com/Licy711/sb-meme
