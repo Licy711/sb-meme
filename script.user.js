@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Linux.sb 表情包工具 Pro
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  在 linux.sb 编辑器添加多分组表情包图库（我的 / sbmeme / mixue），支持帖子图片收集
 // @author       雪王
 // @match        https://linux.sb/*
