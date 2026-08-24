@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Linux.sb 表情包工具 Pro
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  在 linux.sb 编辑器添加多分组表情包图库（我的 / sbmeme / mixue），支持帖子图片收集
 // @author       雪王
 // @match        https://linux.sb/*
@@ -15,22 +15,72 @@
     'use strict';
 
     // ==================== 分组配置（可自行扩展） ====================
-    const STORAGE_PREFIX = 'nb-emoji-';                        // localStorage 键前缀，自动拼接分组名
+    const STORAGE_PREFIX = 'nb-emoji-2-';                        // localStorage 键前缀，自动拼接分组名
     const GROUP_NAMES = ['my', 'mixue', 'sbmeme'];             // 分组标识列表
     const GROUP_LABELS = { my: '我的', mixue: '雪王', sbmeme: '烧饼' }; // 分组显示名称
 
-    // 动态生成默认图片（用于需要默认图的组）
-    function generateDefaultImages(folder, count) {
-        return Array.from({ length: count }, (_, i) => ({
-            url: `https://raw.githubusercontent.com/Licy711/sb-meme/main/meme/${folder}/frame_${String(i).padStart(3, '0')}.png`,
-            desc: `${folder}-${String(i).padStart(3, '0')}`
-        }));
-    }
-
     const DEFAULT_IMAGES = {
         my: [],                                 // 默认为空
-        sbmeme: generateDefaultImages('sb', 45), // sb 文件夹 45 张
-        mixue: generateDefaultImages('ice', 9)   // ice 文件夹 9 张
+        sbmeme: [
+            {"url": "https://linux.sb/app/upload/d3/d340af01e762ef4b60f56225e6624fe115ad9740d18d7db90e1d3dbb71fac204.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/3a/3a605d527b211e1afa522ea00e928972015451c0e2d31ca31da46b0301e71e0a.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/bb/bb7f3c8799c9804c655cae8201a7b01697a1f236f1844cebe62f37b7f29ce5fb.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/ad/ad84bd270a19abbe2b9367b74ff97cbf802b4ceaa9444fe5572a5822b675ccbb.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/57/573edda2ed28776e4cca79e4f29ed6348730f692f117eef6c940589934a7d549.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/a3/a3353d19953bba60449b58873027496641d88e89d87531eaa535ce792ebe9992.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/90/90e3757a6cb10411e6b1fad51611257ba19442f5aede36824698fac8be5872a3.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/34/341c40abd85a3d77735fea09f1336672f9eaa23f0d8ea4fd843c59915596cc15.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/4d/4d408d5840ee37df3fd35ca8d0dbacfc68bedf719ca79326cf02678a66c9db96.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/19/19ffb0aaa279a744948c4130ca4e364ff19ecf7865074c86544b23dfc0dc3655.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/64/64fbb707b0e92fe9a04d9e8637f242d8c936e70f70b1e8e3c84ef428380409d1.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/cc/cc0fc4bbcd3d9a9a57735bbf7b9323bc2f0993398e96b64e105e971c59e37af3.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/63/63be3a957e3305fdc7688ad20b3599d42b324c5b8356059cefca71d1787218f2.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/da/da03d43ecee3389aca54b789c879123669b7383917b0f874760f5d2f2940028a.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/da/da03d43ecee3389aca54b789c879123669b7383917b0f874760f5d2f2940028a.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/40/402f93530a5b1dfba8283819916ff980e3b887a7ea6bfdd0bbfc2a6aa1a96ca2.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/9b/9bca11fccdcbacf90ee6adf07a4babe68882980fc5bab4f6a26972a77a5bc7cb.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/c2/c2067f66d79908cf583324f22f76a45d57eaf398568edbb0e9d4a6d4c14d3d09.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/91/91775897b22cffec7f5be47b8e1c356d448f7e32513c4dc1f0ee4569c8b46901.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/e0/e00dbb5affd4eacb05e790a4198ef227b5c4a10034f380c7dc65b6801d8b207b.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/e0/e00dbb5affd4eacb05e790a4198ef227b5c4a10034f380c7dc65b6801d8b207b.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/df/df329aba7c0e3ac99b2ba95dffdceeace227b4384cbf3a3a1229e8bf3d6212e6.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/03/03b12f85867750e9d13d9e2ccc5459e08d5d5347adc727ffdd2a16f71960a22f.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/63/63686411172f35344476d3c98df7acf79d7e35fba2238cf1db54072f2323f299.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/bf/bf6da3525fb813b010fdb4a86765975303508b7263858537e058316f413c0b0f.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/58/58b2be3028adee489050c3a81726c663b59f3e688968a69ea6f97208ec7f3eee.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/5f/5f8dd5c029f7308da85e09b4b5aa7c3480d355561018533b9b6b01e2c3d7c739.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/e2/e2bddb68c6c1627ea9b0b7d4ddb7ca0ee5865effb45fda43088189f55da802b2.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/26/2672768da9fe3652110b1abb96c3fc8826ce97c571a3a0acc88f013581b00f1f.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/13/13c5e6d9421ac6a03d475bb36c9c1cc4292da075e5d83a4270b8948642a4b6f9.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/da/dad5c8ec8426853c4faffa4615aa22381f6eab037ff5ddf637b27784d666e810.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/6a/6ae8ad6064a9023adee8b292ac682a603ab7a976e9b6b3d21f63be2cb84fd2c2.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/e5/e5429fb03dad42bcc63dc56447b1616504434bec86eb4634e921e579a7c93691.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/e9/e93af1612a16ff8cb4e02b3887c22ce40ec02903568b8fbe9e6510416a1f1ce4.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/25/2519cd57533ee78b7a332371d6a35e24608216c60bfeb24d9295a59df5ca0707.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/3b/3bc86e9b9210602740483e0f9ff0540ae3be595cd7c812767e203db193e2371f.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/60/6083775ddd2959ce4dcd858adca2e6a2296f15a653ca20458ef6008f81f4e2ee.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/5e/5e206c1c20a697542de891a6d72718d2506a9415ce8f608ecaac09b3bef8064b.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/f2/f22ed35c67a7a68bea0f861418300cac49fd02abeebab913d4cbc9640b6339f9.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/54/549a14e68580e6f5d741b52ada348d483925ab9d86e3d5644cee9dfbe920428c.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/76/7679d4fdb0c0665fea996315750e3c08d6631ead79e43adb851e931aa0d1b705.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/ed/edfe9aca1a8d40e9a63a822dad39e429c9f5003fff1fcb1c4c3278f45ea31a5c.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/83/8350f7bd0c1909f6ae311c6b24ede3d6762149e8b4ffd89a38fba27d842499ec.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/51/51b9656c81e90cd5a5e2a09d05b96bce7db7b4eb94ae7288c6ed75004ff86eda.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/61/610a5c20a82856e728c005da0c9c5ce265a0fd03520d17b767531761c84c4e81.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/34/348b84ab4723f3bd2ff7582ddd28063dae4890089ed3b8e63a9fa1aae0d7044b.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/a2/a29adeb768fb418ae0dec3b6dec366e25abb37743b12085a3ea031f726270e7f.png", "desc": "meme"}
+          ], // sb 文件夹 45 张
+        mixue: [
+            {"url": "https://linux.sb/app/upload/74/74275645ab7a0d78f21bbff027bdadeab1404e49ebb14a87cd3e7827d89d298a.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/6e/6efe1fcd78da1ebe49bedaba673dc63fa77e5c5f58604d4606c410a01299dcec.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/3e/3ef82ce2e5b91ed7669f85c5d52f43f80cc04b026be026c664e825d9a8042549.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/db/db3172d16f2ab698d555ce5508e952fd27e7b7448d97ad97101e36bde4827d14.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/bb/bb86314f9c2173316d2608b55ba774bbe593cadd09b4bc6ea931ee1bb3b80b24.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/2e/2eeeab4ea4a722ed22692435a11900daf3266ad0ea59503dda02721a5788c7d0.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/9d/9d8d8538bcd53f385b04f35934bcad788d833af736bd6620ab400157393c5509.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/6e/6e3a38fba2c022e72dc9db6bdacdca65dcf48f52ad3dcda6d73839201cbfdc76.png", "desc": "meme"},
+            {"url": "https://linux.sb/app/upload/5b/5b3f16b1a3b06f5350cbe210805ba81f46920e75997b277ca2ee791c82e07fd8.png", "desc": "meme"}
+          ]   // ice 文件夹 9 张
     };
 
     // SVG 图标
